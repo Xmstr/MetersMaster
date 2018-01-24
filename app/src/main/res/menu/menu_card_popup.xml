@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.xmstr.testabs.MainActivity">
+    <item
+        android:id="@+id/color_popup_black"
+        android:orderInCategory="100"
+        android:title="Черный"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/color_popup_red"
+        android:orderInCategory="100"
+        android:title="Красный"
+        app:showAsAction="never" />
+</menu>

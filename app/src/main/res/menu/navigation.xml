@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_electro"
+        android:icon="@drawable/ic_wb_incandescent"
+        android:title="@string/navigation_electro_text" />
+
+    <item
+        android:id="@+id/navigation_water"
+        android:icon="@drawable/ic_water_main"
+        android:title="@string/navigation_water_text" />
+
+    <item
+        android:id="@+id/navigation_gas"
+        android:icon="@drawable/ic_gas"
+        android:title="@string/navigation_gas_text" />
+
+</menu>

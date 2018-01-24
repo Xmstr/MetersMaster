@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_full_meter"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.xmstr.metersmaster.MeterActivity"
+    tools:showIn="@layout/activity_meter">
+
+    <TextView
+        android:id="@+id/textView_full_meter_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Название: Дача"
+        android:textColor="@color/primary_dark"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/textView_full_meter_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2"
+        android:text="000011"
+        android:textColor="@color/primary_text"
+        android:textSize="36sp" />
+
+    <TextView
+        android:id="@+id/textView_full_meter_volume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView_full_meter_count"
+        android:layout_marginStart="2dp"
+        android:layout_toEndOf="@+id/textView_full_meter_count"
+        android:text="м3"
+        android:textColor="@color/secondary_text"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/textView_full_meter_tariff_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView_full_meter_count"
+        android:text="Тариф:"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView_full_meter_tariff_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView_full_meter_tariff_label"
+        android:layout_marginStart="3dp"
+        android:layout_toEndOf="@+id/textView_full_meter_tariff_label"
+        android:text="5 рублей"
+        android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/imageView_edit_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView_full_meter_name"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/textView_full_meter_name"
+        android:layout_toRightOf="@+id/textView_full_meter_name"
+        android:baselineAlignBottom="true"
+        android:tint="@color/divider"
+        app:srcCompat="@drawable/ic_edit_black_24dp" />
+
+    <ImageView
+        android:id="@+id/imageView_edit_tariff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView_full_meter_tariff_content"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/textView_full_meter_tariff_content"
+        android:layout_toRightOf="@+id/textView_full_meter_tariff_content"
+        android:baselineAlignBottom="true"
+        android:tint="@color/divider"
+        app:srcCompat="@drawable/ic_edit_black_24dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView_full_meter_name"
+        android:layout_below="@+id/textView_full_meter_name"
+        android:text="Сейчас на счетчике:"
+        android:textSize="18sp" />
+
+</RelativeLayout>

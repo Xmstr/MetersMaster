@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        app:errorEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/editText_meter_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Название счетчика"
+            android:maxLength="15"
+            android:textSize="22sp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textInputLayout_name"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        app:errorEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/editText_meter_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Начальное показание"
+            android:inputType="number"
+            android:maxLength="5"
+            android:textSize="22sp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout_tariff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textInputLayout_count"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        app:errorEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/editText_meter_tariff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Тариф"
+            android:inputType="numberDecimal"
+            android:maxLength="5"
+            android:textSize="22sp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Switch
+        android:id="@+id/switch_unknown_tariff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_below="@+id/textInputLayout_tariff"
+        android:text="Я не знаю тариф "
+        android:textSize="16sp" />
+
+</RelativeLayout>
