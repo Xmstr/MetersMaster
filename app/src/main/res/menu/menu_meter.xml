@@ -5,8 +5,13 @@
     <item
         android:id="@+id/action_meter_change_color"
         android:orderInCategory="100"
-
-        android:icon="@drawable/ic_palette_white_24dp"
+        android:icon="@drawable/ic_palette_black_24dp"
         android:title="цвет"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_meter_delete_meter"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_delete_forever_black_24dp"
+        android:title="удалить"
         app:showAsAction="always" />
 </menu>

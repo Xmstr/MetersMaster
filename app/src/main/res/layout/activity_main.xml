@@ -31,7 +31,7 @@
         android:id="@+id/frame_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/primary_light"
+        android:background="@color/background_recycler"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintTop_toBottomOf="@+id/appbar">

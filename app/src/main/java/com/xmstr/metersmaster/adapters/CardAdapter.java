@@ -117,6 +117,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
         TextView nameOfMeterTextView;
         TextView tariffContentTextView;
         TextView lastDataDateTextView;
+        TextView currencyTextView;
+        TextView volumeTypeTextView;
         CardView card;
         Button addNewMeterButton;
         ImageView deleteImageButton;
@@ -133,6 +135,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
             addNewMeterButton = itemView.findViewById(R.id.button_add_new_meter);
             deleteImageButton = itemView.findViewById(R.id.imageView_delete);
             notiImageView = itemView.findViewById(R.id.imageButton_noti);
+            currencyTextView = itemView.findViewById(R.id.textView_tariff_currency);
+            volumeTypeTextView = itemView.findViewById(R.id.textView_meter_volume_type);
 
         }
 
@@ -153,8 +157,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
                     mainCountTextView.setText(utils.prepareNumber(lastCount.getNumber()));
                     //Log.i("COUNTS", "countList number: "+ countsList.get(countsList.size()-1).getNumber());
                     nameOfMeterTextView.setText(meter.getName());
-                    if (meter.getTariff().equals(""))
-                        tariffContentTextView.setText("неизвестен");
+                    volumeTypeTextView.setText(meter.getVolumeType());
+                    currencyTextView.setText(meter.getCurrency());
+                    if (meter.getTariff().equals("")){
+                        tariffContentTextView.setText("нет данных");
+                        currencyTextView.setText("");
+                    }
                     else tariffContentTextView.setText(meter.getTariff());
                     lastDataDateTextView.setText(DateConverter.toString(lastCount.getDate()));
                     /*Drawable background = notiImageView.getBackground();

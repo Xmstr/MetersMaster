@@ -18,7 +18,7 @@
         android:layout_alignParentTop="true"
         android:text="Название: Дача"
         android:textColor="@color/primary_dark"
-        android:textSize="30sp" />
+        android:textSize="28sp" />
 
     <TextView
         android:id="@+id/textView_full_meter_count"
@@ -31,7 +31,7 @@
         android:textSize="36sp" />
 
     <TextView
-        android:id="@+id/textView_full_meter_volume"
+        android:id="@+id/textView_full_meter_volume_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView_full_meter_count"
@@ -57,7 +57,7 @@
         android:layout_alignBaseline="@+id/textView_full_meter_tariff_label"
         android:layout_marginStart="3dp"
         android:layout_toEndOf="@+id/textView_full_meter_tariff_label"
-        android:text="5 рублей"
+        android:text="5"
         android:textSize="24sp" />
 
     <ImageView

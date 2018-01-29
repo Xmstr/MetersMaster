@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="260dp">
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="@color/accent"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="34dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="50dp"
+                android:background="@color/background_collapsing_toolbar"
+                android:paddingBottom="60dp">
+
+                <TextView
+                    android:id="@+id/textView_full_meter_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:text="Квартира"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="28sp" />
+
+                <TextView
+                    android:id="@+id/textView_full_meter_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/textView2"
+                    android:text="000011"
+                    android:textColor="@color/primary_text"
+                    android:textSize="36sp" />
+
+                <TextView
+                    android:id="@+id/textView_full_meter_volume_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/textView_full_meter_count"
+                    android:layout_marginStart="2dp"
+                    android:layout_toEndOf="@+id/textView_full_meter_count"
+                    android:text="м3"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="30sp" />
+
+                <TextView
+                    android:id="@+id/textView_full_meter_tariff_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/textView_full_meter_count"
+                    android:text="Тариф:"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/textView_full_meter_tariff_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/textView_full_meter_tariff_label"
+                    android:layout_marginStart="3dp"
+                    android:layout_toEndOf="@+id/textView_full_meter_tariff_label"
+                    android:text="5"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/textView_full_meter_tariff_currency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/textView_full_meter_tariff_label"
+                    android:layout_marginStart="3dp"
+                    android:layout_toEndOf="@+id/textView_full_meter_tariff_content"
+                    android:text="Р"
+                    android:textSize="24sp" />
+
+
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/textView_full_meter_name"
+                    android:layout_below="@+id/textView_full_meter_name"
+                    android:text="Сейчас на счетчике:"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/imageView_edit_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/textView_full_meter_name"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginBottom="3dp"
+                    android:scaleType="fitXY"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_toEndOf="@+id/textView_full_meter_name"
+                    android:layout_toRightOf="@+id/textView_full_meter_name"
+                    android:baselineAlignBottom="true"
+                    android:tint="@color/secondary_text"
+                    app:srcCompat="@drawable/ic_edit_black_24dp" />
+
+                <ImageView
+                    android:id="@+id/imageView_edit_tariff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_alignBottom="@+id/textView_full_meter_tariff_currency"
+                    android:layout_toEndOf="@+id/textView_full_meter_tariff_currency"
+                    android:layout_marginStart="12dp"
+                    android:baselineAlignBottom="true"
+                    android:layout_marginBottom="3dp"
+                    android:scaleType="fitXY"
+                    android:tint="@color/secondary_text"
+                    app:srcCompat="@drawable/ic_edit_black_24dp" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/scroll_meter_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_centerHorizontal="true"
+                app:layout_collapseMode="pin" />
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_new_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:srcCompat="@drawable/ic_add_black_24dp"
+        app:layout_anchor="@id/app_bar_layout"
+        app:layout_anchorGravity="bottom|end"
+        />
+    
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/meter_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="23dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+
+</android.support.design.widget.CoordinatorLayout>

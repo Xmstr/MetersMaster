@@ -22,6 +22,10 @@
             android:name=".MeterActivity"
             android:label="@string/title_activity_meter"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ScrollingMeterActivity"
+            android:label="@string/title_activity_meter"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

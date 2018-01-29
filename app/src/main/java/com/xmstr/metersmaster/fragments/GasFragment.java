@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.xmstr.metersmaster.ScrollingMeterActivity;
 import com.xmstr.metersmaster.model.Count;
 import com.xmstr.metersmaster.model.Meter;
 import com.xmstr.metersmaster.MeterActivity;
@@ -101,9 +102,10 @@ public class GasFragment extends Fragment implements CardAdapter.CardListener, N
 
     @Override
     public void onCardClick(int meterId) {
-        Log.i("METER", "meter intent ID = "+ meterId);
-        Intent meterIntent = new Intent(getContext(), MeterActivity.class);
+
+        Intent meterIntent = new Intent(getContext(), ScrollingMeterActivity.class);
         meterIntent.putExtra("meterId", meterId);
+        Log.i("INTENT", "Sending meter intent ID = "+ meterId);
         startActivity(meterIntent);
     }
 

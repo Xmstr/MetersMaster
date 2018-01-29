@@ -70,4 +70,14 @@
         android:text="Я не знаю тариф "
         android:textSize="16sp" />
 
+    <TextView
+        android:id="@+id/textView_hint_tariff_later"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_alignStart="@+id/switch_unknown_tariff"
+        android:layout_below="@+id/switch_unknown_tariff"
+        android:text="Можно будет ввести позднее"
+        android:textSize="12sp" />
+
 </RelativeLayout>

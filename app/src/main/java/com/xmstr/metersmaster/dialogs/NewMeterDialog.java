@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.xmstr.metersmaster.R;
 import com.xmstr.metersmaster.db.MeterDatabase;
@@ -45,6 +46,7 @@ public class NewMeterDialog extends DialogFragment implements DialogInterface.On
     boolean isNameValidated = false;
     boolean isTariffValidated = false;
     Switch switchUnknownTariff;
+    TextView hintTarifLaterTextView;
     MeterDatabase db;
 
     Count firstCount;
@@ -172,6 +174,7 @@ public class NewMeterDialog extends DialogFragment implements DialogInterface.On
         tariffInputLayout = view.findViewById(R.id.textInputLayout_tariff);
         tariffEditText = view.findViewById(R.id.editText_meter_tariff);
         switchUnknownTariff = view.findViewById(R.id.switch_unknown_tariff);
+        hintTarifLaterTextView = view.findViewById(R.id.textView_hint_tariff_later);
 
 
         builder.setTitle("Новый счетчик")
@@ -197,8 +200,10 @@ public class NewMeterDialog extends DialogFragment implements DialogInterface.On
                     tariffEditText.setEnabled(false);
                     tariffEditText.setText("");
                     tariffInputLayout.setError("");
+                    hintTarifLaterTextView.setVisibility(View.VISIBLE);
                 } else {
                     tariffInputLayout.setVisibility(View.VISIBLE);
+                    hintTarifLaterTextView.setVisibility(View.GONE);
                     tariffEditText.setEnabled(true);
                 }
             }
