@@ -55,10 +55,10 @@ public class ChangeNameDialog extends DialogFragment implements DialogInterface.
         if (getArguments() != null) {
             currentName = getArguments().getString("meterName");
         }
-        nameTextInputLayout = view.findViewById(R.id.textInputLayout_name);
-        nameEditText = view.findViewById(R.id.editText_meter_name);
-        prevNameLabelTextView = view.findViewById(R.id.textView_prevNameLabel);
-        prevNameTextView = view.findViewById(R.id.textView_prevNameContent);
+        nameTextInputLayout = view.findViewById(R.id.textInputLayout_tariff);
+        nameEditText = view.findViewById(R.id.editText_meter_tariff);
+        prevNameLabelTextView = view.findViewById(R.id.textView_prevTariffLabel);
+        prevNameTextView = view.findViewById(R.id.textView_prevTariffContent);
 
         prevNameTextView.setText(currentName);
         builder.setIcon(R.drawable.ic_edit_black_24dp)

@@ -9,12 +9,12 @@
         android:id="@+id/textView_prevTariffLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="5dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="Текущее название:"
-        android:textSize="18sp" />
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="5dp"
+        android:text="Текущий тариф:"
+        android:textSize="22sp" />
 
     <TextView
         android:id="@+id/textView_prevTariffContent"
@@ -24,9 +24,21 @@
         android:layout_marginStart="1dp"
         android:layout_marginTop="5dp"
         android:layout_toEndOf="@+id/textView_prevTariffLabel"
-        android:text="Квартира"
+        android:text="5.5"
         android:textColor="@color/primary_text"
-        android:textSize="18sp" />
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/textView_prevTariffCurrency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/textView_prevTariffContent"
+        android:text="@string/currency_label_ruble"
+        android:textColor="@color/primary_text"
+        android:textSize="22sp" />
 
 
 
@@ -44,9 +56,29 @@
             android:id="@+id/editText_meter_tariff"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Новое название"
-            android:maxLength="15"
+            android:hint="Новый тариф"
+            android:maxLength="5"
             android:textSize="22sp" />
     </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:id="@+id/textView_current_currency_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textInputLayout_tariff"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="5dp"
+        android:text="Валюта:"
+        android:textSize="18sp" />
+
+    <Spinner
+        android:id="@+id/currency_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:entries="@array/currency"
+        android:layout_alignBottom="@+id/textView_current_currency_label"
+        android:layout_toEndOf="@+id/textView_current_currency_label" />
 
 </RelativeLayout>

@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xmstr.metersmaster.db.MeterDatabase;
 import com.xmstr.metersmaster.dialogs.NewMeterDialog;
@@ -124,7 +125,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_upload) {
+            Toast.makeText(this, "UPLOAD DIALOG", Toast.LENGTH_SHORT).show();
             return true;
         }
 

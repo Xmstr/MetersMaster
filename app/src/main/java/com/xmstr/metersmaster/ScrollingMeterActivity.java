@@ -1,5 +1,6 @@
 package com.xmstr.metersmaster;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,6 +23,7 @@ import com.xmstr.metersmaster.adapters.CountAdapter;
 import com.xmstr.metersmaster.db.DateConverter;
 import com.xmstr.metersmaster.db.MeterDatabase;
 import com.xmstr.metersmaster.dialogs.ChangeNameDialog;
+import com.xmstr.metersmaster.dialogs.ChangeTariffDialog;
 import com.xmstr.metersmaster.model.Count;
 import com.xmstr.metersmaster.model.Meter;
 import com.xmstr.metersmaster.utils.Utils;
@@ -34,7 +36,7 @@ import petrov.kristiyan.colorpicker.ColorPicker;
 
 import static android.support.v7.widget.DividerItemDecoration.HORIZONTAL;
 
-public class ScrollingMeterActivity extends AppCompatActivity implements CountAdapter.CountListener, ChangeNameDialog.DialogChangeNameListener {
+public class ScrollingMeterActivity extends AppCompatActivity implements CountAdapter.CountListener, ChangeNameDialog.DialogChangeNameListener, ChangeTariffDialog.DialogChangeTariffListener {
 
     int meterId;
     private RecyclerView countsRecyclerView;
@@ -98,10 +100,18 @@ public class ScrollingMeterActivity extends AppCompatActivity implements CountAd
         changeNameImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("TEST", "test");
                 FragmentManager fm = getSupportFragmentManager();
                 ChangeNameDialog changeNameDialog = ChangeNameDialog.newInstance(currentMeter.getName());
                 changeNameDialog.show(fm, "change meter name");
+            }
+        });
+
+        changeTariffImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getSupportFragmentManager();
+                ChangeTariffDialog changeTariffDialog = ChangeTariffDialog.newInstance(currentMeter.getTariff(), currentMeter.getCurrency());
+                changeTariffDialog.show(fm, "change meter tariff");
             }
         });
 
@@ -190,9 +200,27 @@ public class ScrollingMeterActivity extends AppCompatActivity implements CountAd
             case R.id.action_meter_change_color:
                 showColorPicker();
                 return true;
+            case R.id.action_meter_delete_meter:
+                deleteMeterAndGoBack();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void deleteMeterAndGoBack() {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Удалить счетчик?")
+                .setIcon(R.drawable.ic_delete_forever_black_24dp)
+                .setPositiveButton("Удалить", (dialogInterface, i) -> {
+                    db.meterDao().deleteMeter(currentMeter);
+                    finish();
+                })
+                .setNegativeButton("Отмена", (dialogInterface, i) -> {
+                })
+                .create();
+        dialog.show();
+
     }
 
     @Override
@@ -205,5 +233,14 @@ public class ScrollingMeterActivity extends AppCompatActivity implements CountAd
         currentMeter.setName(newName);
         db.meterDao().updateMeter(currentMeter);
         meterNameTextView.setText(newName);
+    }
+
+    @Override
+    public void onChangeTariffPositiveClick(String newTariff, String newCurrency) {
+        currentMeter.setTariff(newTariff);
+        currentMeter.setCurrency(newCurrency);
+        db.meterDao().updateMeter(currentMeter);
+        meterTariffTextView.setText(newTariff);
+        meterTariffCurrencyTextView.setText(newCurrency);
     }
 }
