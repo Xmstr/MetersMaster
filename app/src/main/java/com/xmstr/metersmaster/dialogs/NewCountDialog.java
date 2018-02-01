@@ -25,7 +25,7 @@ import com.xmstr.metersmaster.utils.Utils;
  * Created by Xmstr.
  */
 
-public class ChangeNameDialog extends DialogFragment implements DialogInterface.OnClickListener {
+public class NewCountDialog extends DialogFragment implements DialogInterface.OnClickListener {
 
     TextInputLayout nameTextInputLayout;
     EditText nameEditText;
@@ -36,7 +36,7 @@ public class ChangeNameDialog extends DialogFragment implements DialogInterface.
     String newName = "";
     Utils utils = new Utils(getContext());
 
-    public ChangeNameDialog() {
+    public NewCountDialog() {
 
     }
 
@@ -71,8 +71,8 @@ public class ChangeNameDialog extends DialogFragment implements DialogInterface.
 
     }
 
-    public static ChangeNameDialog newInstance(String meterName) {
-        ChangeNameDialog changeNameDialog = new ChangeNameDialog();
+    public static NewCountDialog newInstance(String meterName) {
+        NewCountDialog changeNameDialog = new NewCountDialog();
         Bundle args = new Bundle();
         args.putString("meterName", meterName);
         changeNameDialog.setArguments(args);

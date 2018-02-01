@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.xmstr.metersmaster.R;
+import com.xmstr.metersmaster.interfaces.FullMeterListener;
 import com.xmstr.metersmaster.utils.Utils;
 
 
@@ -39,10 +40,6 @@ public class ChangeTariffDialog extends DialogFragment implements DialogInterfac
     String newTariff = "";
     String newCurrency = "";
     Utils utils = new Utils(getContext());
-
-    public interface DialogChangeTariffListener {
-        void onChangeTariffPositiveClick(String newTariff, String newCurrency);
-    }
 
     public ChangeTariffDialog() {
 
@@ -68,9 +65,10 @@ public class ChangeTariffDialog extends DialogFragment implements DialogInterfac
         tariffCurrencyTextView = view.findViewById(R.id.textView_prevTariffCurrency);
         if (currentTariff.equals("")) {
             prevTariffTextView.setText("нет данных");
-            tariffCurrencyTextView.setVisibility(View.GONE);
+            tariffCurrencyTextView.setVisibility(View.INVISIBLE);
         } else {
             prevTariffTextView.setText(currentTariff);
+            tariffCurrencyTextView.setText(currentCurrency);
             tariffCurrencyTextView.setVisibility(View.VISIBLE);
         }
         builder.setIcon(R.drawable.ic_edit_black_24dp)
@@ -125,7 +123,7 @@ public class ChangeTariffDialog extends DialogFragment implements DialogInterfac
             tariffSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int selectedItemPosition, long selectedId) {
-                    if (!currentTariff.equals("")) {
+                    //if (!currentTariff.equals("")) {
                         switch (selectedItemPosition) {
                             case 0:
                                 newCurrency = getString(R.string.currency_label_ruble);
@@ -140,7 +138,7 @@ public class ChangeTariffDialog extends DialogFragment implements DialogInterfac
                                 tariffCurrencyTextView.setText(getString(R.string.currency_label_ruble));
                                 break;
                         }
-                    }
+                   // }
                 }
 
                 @Override
@@ -153,7 +151,7 @@ public class ChangeTariffDialog extends DialogFragment implements DialogInterfac
     }
 
     private void sendBackResult() {
-        DialogChangeTariffListener listener = (DialogChangeTariffListener) getActivity();
+        FullMeterListener listener = (FullMeterListener) getActivity();
         listener.onChangeTariffPositiveClick(newTariff, newCurrency);
     }
 

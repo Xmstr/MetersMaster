@@ -20,23 +20,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xmstr.metersmaster.adapters.CountAdapter;
-import com.xmstr.metersmaster.db.DateConverter;
 import com.xmstr.metersmaster.db.MeterDatabase;
 import com.xmstr.metersmaster.dialogs.ChangeNameDialog;
 import com.xmstr.metersmaster.dialogs.ChangeTariffDialog;
+import com.xmstr.metersmaster.interfaces.FullMeterListener;
 import com.xmstr.metersmaster.model.Count;
 import com.xmstr.metersmaster.model.Meter;
 import com.xmstr.metersmaster.utils.Utils;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import petrov.kristiyan.colorpicker.ColorPicker;
 
 import static android.support.v7.widget.DividerItemDecoration.HORIZONTAL;
 
-public class ScrollingMeterActivity extends AppCompatActivity implements CountAdapter.CountListener, ChangeNameDialog.DialogChangeNameListener, ChangeTariffDialog.DialogChangeTariffListener {
+public class ScrollingMeterActivity extends AppCompatActivity implements CountAdapter.CountListener, FullMeterListener {
 
     int meterId;
     private RecyclerView countsRecyclerView;
@@ -84,8 +83,16 @@ public class ScrollingMeterActivity extends AppCompatActivity implements CountAd
         //newFakeCounts();
 
         meterNameTextView.setText(currentMeter.getName());
-        meterCountTextView.setText(utils.prepareNumber(countsList.get(countsList.size()-1).getNumber()));
-        meterTariffTextView.setText(currentMeter.getTariff());
+        meterCountTextView.setText(utils.prepareNumber(countsList.get(countsList.size() - 1).getNumber()));
+        if (currentMeter.getTariff().equals("")) {
+            meterTariffTextView.setText("нет данных");
+            meterTariffCurrencyTextView.setVisibility(View.INVISIBLE);
+        } else {
+            meterTariffTextView.setText(currentMeter.getTariff());
+            meterTariffCurrencyTextView.setVisibility(View.VISIBLE);
+        }
+
+
         meterVolumeTypeTextView.setText(currentMeter.getVolumeType());
         meterTariffCurrencyTextView.setText(currentMeter.getCurrency());
 
@@ -114,7 +121,6 @@ public class ScrollingMeterActivity extends AppCompatActivity implements CountAd
                 changeTariffDialog.show(fm, "change meter tariff");
             }
         });
-
 
 
         fabNewCount = findViewById(R.id.fab_new_count);
@@ -149,7 +155,7 @@ public class ScrollingMeterActivity extends AppCompatActivity implements CountAd
 
     private void newFakeCounts() {
         Calendar c = Calendar.getInstance();
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             Count fakeCount = new Count(currentMeter.getId(), "4444", c.getTime());
             db.countDao().insertAllCounts(fakeCount);
         }
@@ -167,7 +173,7 @@ public class ScrollingMeterActivity extends AppCompatActivity implements CountAd
             @Override
             public void setOnFastChooseColorListener(int position, int color) {
                 // Меняем цвет метера и фона
-               // layoutFullMeter.setBackgroundColor(color);
+                // layoutFullMeter.setBackgroundColor(color);
                 currentMeter.setColor(color);
                 db.meterDao().updateMeter(currentMeter);
             }
@@ -241,6 +247,9 @@ public class ScrollingMeterActivity extends AppCompatActivity implements CountAd
         currentMeter.setCurrency(newCurrency);
         db.meterDao().updateMeter(currentMeter);
         meterTariffTextView.setText(newTariff);
+        meterTariffCurrencyTextView.setVisibility(View.VISIBLE);
         meterTariffCurrencyTextView.setText(newCurrency);
+        Log.i("DIALOGS", newCurrency);
+
     }
 }
