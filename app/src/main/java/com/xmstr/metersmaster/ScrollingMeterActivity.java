@@ -23,6 +23,7 @@ import com.xmstr.metersmaster.adapters.CountAdapter;
 import com.xmstr.metersmaster.db.MeterDatabase;
 import com.xmstr.metersmaster.dialogs.ChangeNameDialog;
 import com.xmstr.metersmaster.dialogs.ChangeTariffDialog;
+import com.xmstr.metersmaster.dialogs.NewCountDialog;
 import com.xmstr.metersmaster.interfaces.FullMeterListener;
 import com.xmstr.metersmaster.model.Count;
 import com.xmstr.metersmaster.model.Meter;
@@ -127,7 +128,9 @@ public class ScrollingMeterActivity extends AppCompatActivity implements CountAd
         fabNewCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ScrollingMeterActivity.this, "NEW COUNT", Toast.LENGTH_SHORT).show();
+                FragmentManager fm = getSupportFragmentManager();
+                NewCountDialog newCountDialog = NewCountDialog.newInstance(currentMeter.getId(), countsList.get(countsList.size() - 1).getNumber());
+                newCountDialog.show(fm, "new count dialog");
             }
         });
 
@@ -251,5 +254,12 @@ public class ScrollingMeterActivity extends AppCompatActivity implements CountAd
         meterTariffCurrencyTextView.setText(newCurrency);
         Log.i("DIALOGS", newCurrency);
 
+    }
+
+    @Override
+    public void onNewCountAdded(Count newCount) {
+        db.countDao().insertAllCounts(newCount);
+        updateCountsList();
+        countAdapter.updateAndAnimateCount(countsList , countsList.size()-1, CountAdapter.ACTION_INSERT);
     }
 }

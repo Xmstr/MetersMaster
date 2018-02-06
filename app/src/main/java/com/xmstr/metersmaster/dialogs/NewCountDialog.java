@@ -17,8 +17,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.xmstr.metersmaster.R;
+import com.xmstr.metersmaster.db.MeterDatabase;
 import com.xmstr.metersmaster.interfaces.FullMeterListener;
+import com.xmstr.metersmaster.model.Count;
+import com.xmstr.metersmaster.model.Meter;
 import com.xmstr.metersmaster.utils.Utils;
+
+import java.util.Calendar;
 
 
 /**
@@ -27,17 +32,22 @@ import com.xmstr.metersmaster.utils.Utils;
 
 public class NewCountDialog extends DialogFragment implements DialogInterface.OnClickListener {
 
-    TextInputLayout nameTextInputLayout;
-    EditText nameEditText;
-    TextView prevNameTextView;
-    TextView prevNameLabelTextView;
-    boolean isNameValidated = false;
-    String currentName = "";
-    String newName = "";
+    TextInputLayout countTextInputLayout;
+    EditText countEditText;
+    TextView prevCountTextView;
+    TextView prevCountLabelTextView;
+    boolean isCountValidated = false;
+    int meterId;
+    Count count;
+    Meter currentMeter;
+    String meterName = "";
+    String lastCount = "";
+    String newCount = "";
+    MeterDatabase db;
     Utils utils = new Utils(getContext());
 
     public NewCountDialog() {
-
+        db = MeterDatabase.getInstance(getContext());
     }
 
 
@@ -46,35 +56,35 @@ public class NewCountDialog extends DialogFragment implements DialogInterface.On
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.change_name_dialog_layout, null);
-
-
+        View view = inflater.inflate(R.layout.new_count_dialog_layout, null);
         if (getArguments() != null) {
-            currentName = getArguments().getString("meterName");
+            lastCount = getArguments().getString("lastCount");
+            meterId = getArguments().getInt("meterId");
         }
-        nameTextInputLayout = view.findViewById(R.id.textInputLayout_tariff);
-        nameEditText = view.findViewById(R.id.editText_meter_tariff);
-        prevNameLabelTextView = view.findViewById(R.id.textView_prevTariffLabel);
-        prevNameTextView = view.findViewById(R.id.textView_prevTariffContent);
+        countTextInputLayout = view.findViewById(R.id.textInputLayout_count);
+        countEditText = view.findViewById(R.id.editText_new_count);
+        prevCountLabelTextView = view.findViewById(R.id.textView_prevCountLabel);
+        prevCountTextView = view.findViewById(R.id.textView_prevCountContent);
 
-        prevNameTextView.setText(currentName);
+        prevCountTextView.setText(utils.prepareNumber(lastCount));
+
         builder.setIcon(R.drawable.ic_edit_black_24dp)
                 .setView(view)
                 .setTitle("Смена названия")
-                .setPositiveButton("СМЕНИТЬ", this)
+                .setPositiveButton("ЗАПИСАТЬ", this)
                 .setNegativeButton("ОТМЕНА", this);
         AlertDialog changeDialog = builder.create();
-
 
         return changeDialog;
 
 
     }
 
-    public static NewCountDialog newInstance(String meterName) {
+    public static NewCountDialog newInstance(int meterId, String lastCountText) {
         NewCountDialog changeNameDialog = new NewCountDialog();
         Bundle args = new Bundle();
-        args.putString("meterName", meterName);
+        args.putInt("meterId", meterId);
+        args.putString("lastCount", lastCountText);
         changeNameDialog.setArguments(args);
         return changeNameDialog;
     }
@@ -89,13 +99,13 @@ public class NewCountDialog extends DialogFragment implements DialogInterface.On
                 @Override
                 public void onClick(View view) {
                     boolean wantToCloseDialog = false;
-                    validateName(nameEditText.getText());
-                    if (isNameValidated) {
-                        nameTextInputLayout.setError("");
-                        newName = nameEditText.getText().toString().trim();
+                    validateCount(countEditText.getText().toString());
+                    if (isCountValidated) {
+                        countTextInputLayout.setError("");
+                        newCount = countEditText.getText().toString().trim();
                         wantToCloseDialog = true;
                     } else {
-                        nameTextInputLayout.setError("Введите новое имя!");
+                        countTextInputLayout.setError("Введите показание!");
                         wantToCloseDialog = false;
                     }
 
@@ -110,25 +120,39 @@ public class NewCountDialog extends DialogFragment implements DialogInterface.On
 
     private void sendBackResult() {
         FullMeterListener listener = (FullMeterListener) getActivity();
-        listener.onChangeNamePositiveClick(newName);
+        listener.onNewCountAdded(formNewCount());
+    }
+
+    private Count formNewCount(){
+        count = new Count();
+        count.setMeterId(currentMeter.getId());
+        count.setNumber(newCount);
+        Calendar calendar = Calendar.getInstance();
+        count.setDate(calendar.getTime());
+        return count;
     }
 
 
-    private void validateName(Editable editable) {
-        if (TextUtils.isEmpty(editable.toString().trim())) {
-            Log.i("checking", "NAME EMPTY");
-            nameTextInputLayout.setError("Введите имя, например 'Квартира'");
-            isNameValidated = false;
-        } else {
-            if (utils.checkNameExists(editable.toString())) {
-                Log.i("checking", "NAME EXISTS! ERROR");
-                nameTextInputLayout.setError("Имя уже существует!");
-                isNameValidated = false;
+    private void validateCount(String enteredString) {
+        if (enteredString.startsWith("0")) {
+            if (enteredString.length() > 0) {
+                countEditText.setText(enteredString.substring(1));
+                countTextInputLayout.setError("Без нулей в начале!");
             } else {
-                nameTextInputLayout.setError("");
-                isNameValidated = true;
+                countEditText.setText("");
+                countTextInputLayout.setError("Без нулей в начале!");
             }
-        }
+        } else countTextInputLayout.setError("");
+
+        if (TextUtils.isEmpty(enteredString.trim())) {
+            countTextInputLayout.setError("Введите показание!");
+            isCountValidated = false;
+        } else isCountValidated = true;
+
+        if (Integer.parseInt(enteredString) <= Integer.parseInt(lastCount)){
+            countTextInputLayout.setError("Не может быть меньше текущего");
+            isCountValidated = false;
+        } else isCountValidated = true;
     }
 
 

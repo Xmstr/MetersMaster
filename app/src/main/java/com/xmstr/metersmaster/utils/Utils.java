@@ -53,5 +53,4 @@ public class Utils {
         stringBuilder.setSpan(new ForegroundColorSpan(ContextCompat.getColor(context,R.color.primary_light)),0,missing,0);
         return stringBuilder;
     }
-
 }
